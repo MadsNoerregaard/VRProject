@@ -42,3 +42,5 @@ MonoBehaviour:
   _systemLoadingScreenBackground: 0
   ovrPluginMd5Win64: e8cfe66d40bc858ac6a51dd265d3b2f714661e4d70809b49033177de0913eea0
   ovrPluginMd5Android: c7bb9a379e186c4b2726b69bbb7d3ace09f2f16a6a04838ce53fbb5a19d426a8
+  ovrPluginMd5Win64: e8cfe66d40bc858ac6a51dd265d3b2f7e128f2086b3d76e0acd039d54e008b5e
+  ovrPluginMd5Android: c7bb9a379e186c4b2726b69bbb7d3acebfe3915d97d2c7797dee944d08dfe17b
