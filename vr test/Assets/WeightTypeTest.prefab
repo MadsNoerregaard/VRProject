@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 1751077351340134490}
   - component: {fileID: 7153069244769577786}
   m_Layer: 0
-  m_Name: WeightTypeLight
+  m_Name: WeightTypeTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
