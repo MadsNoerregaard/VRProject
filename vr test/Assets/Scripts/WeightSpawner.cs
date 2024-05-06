@@ -7,11 +7,6 @@ public class WeightManager : MonoBehaviour
     public GameObject weightType3Prefab;
     public Vector3 spawnPosition;
 
-    void Start()
-    {
-        if (weightType1Prefab != null)
-            spawnPosition = weightType1Prefab.transform.position;
-    }
     // Update is called once per frame
     void Update()
     {
