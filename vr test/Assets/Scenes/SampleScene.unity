@@ -597,8 +597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 1204655424}
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0.4, y: -0.16, z: -0.21}
+  rotationOffset: {x: 0, y: 80, z: 0}
 --- !u!114 &1204655424 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2483171112407822892, guid: f54012181eacade4ea242c65f804720f, type: 3}
@@ -1264,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4099260640174982350, guid: a7ce3c58fe311034fa76ea2a9eb7620e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.27551103
+      value: 0.2594
       objectReference: {fileID: 0}
     - target: {fileID: 4099260640174982350, guid: a7ce3c58fe311034fa76ea2a9eb7620e, type: 3}
       propertyPath: m_LocalPosition.y
