@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SphereFollowerWide : MonoBehaviour
+public class SphereFollowerUp : MonoBehaviour
 {
     public BezierCurveRenderer bezierCurveRenderer;
     public float speed = 5f;

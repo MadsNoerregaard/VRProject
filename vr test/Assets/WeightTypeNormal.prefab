@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3614853302039761019}
   - component: {fileID: 267564058716690337}
   - component: {fileID: 7240613796515409566}
+  - component: {fileID: 3592969658541976461}
   m_Layer: 0
   m_Name: WeightTypeNormal
   m_TagString: Weight
@@ -167,6 +168,28 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 1
   _handGrabPoses: []
+--- !u!64 &3592969658541976461
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513417025326319909}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &4149759261269131784
 GameObject:
   m_ObjectHideFlags: 0

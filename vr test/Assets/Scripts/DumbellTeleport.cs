@@ -1,3 +1,4 @@
+using Oculus.Interaction.Input;
 using UnityEngine;
 
 public class TeleportDumbbell : MonoBehaviour
@@ -9,6 +10,8 @@ public class TeleportDumbbell : MonoBehaviour
     private Transform grabPointTransform;
     private bool isHeld = false;
     private string handPath = "TrackingSpace/RightHandAnchor";
+    public GameObject hand;
+    private Hand handScript;
 
     // Add fields for offset
     public Vector3 positionOffset = new Vector3(0f, -0.1f, 0.2f); // Adjust this value based on your needs
@@ -16,7 +19,7 @@ public class TeleportDumbbell : MonoBehaviour
 
     void Start()
     {
-        
+        handScript = hand.GetComponent<Hand>();
     }
 
     void Update()
@@ -42,6 +45,7 @@ public class TeleportDumbbell : MonoBehaviour
         }
 
         handTransform = cameraRig.transform.Find(handPath);
+
         if (handTransform == null)
         {
             Debug.LogError("Hand transform not found at path: " + handPath);
@@ -53,16 +57,19 @@ public class TeleportDumbbell : MonoBehaviour
             if (!isHeld)
             {
                 dumbbellRigidbody.isKinematic = true;
-                // Calculate new position using the offset
+
                 dumbbell.position = handTransform.position + handTransform.TransformDirection(positionOffset);
                 dumbbell.rotation = handTransform.rotation * Quaternion.Euler(rotationOffset);
                 dumbbell.parent = handTransform;
+                cameraRig.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                handScript.enabled = false;
                 isHeld = true;
             }
             else
             {
                 dumbbell.parent = null;
                 dumbbellRigidbody.isKinematic = false;
+                handScript.enabled = true;
                 isHeld = false;
             }
             Debug.Log("Hand Position: " + handTransform.position);
