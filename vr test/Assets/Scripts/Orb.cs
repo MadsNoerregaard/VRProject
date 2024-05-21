@@ -36,4 +36,7 @@ public class SphereFollowerWide : MonoBehaviour
         }
         return length;
     }
+    public void enable(bool active) {
+        
+    }
 }

@@ -10,18 +10,7 @@ public class WeightManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SpawnWeight(weightType1Prefab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SpawnWeight(weightType2Prefab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SpawnWeight(weightType3Prefab);
-        }
+        
     }
 
     void SpawnWeight(GameObject weightPrefab)
@@ -30,7 +19,7 @@ public class WeightManager : MonoBehaviour
         Instantiate(weightPrefab, spawnPosition, Quaternion.identity);
     }
 
-    void DestroyExistingWeights()
+    public void DestroyExistingWeights()
     {
         foreach (var existingWeight in FindObjectsOfType<GameObject>())
         {
@@ -38,6 +27,20 @@ public class WeightManager : MonoBehaviour
             {
                 Destroy(existingWeight);
             }
+        }
+    }
+    public void ChooseWeight(int val) {
+        if (val == 1)
+        {
+            SpawnWeight(weightType1Prefab);
+        }
+        else if (val == 2)
+        {
+            SpawnWeight(weightType2Prefab);
+        }
+        else if (val == 3)
+        {
+            SpawnWeight(weightType3Prefab);
         }
     }
 }

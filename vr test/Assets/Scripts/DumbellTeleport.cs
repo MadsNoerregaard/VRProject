@@ -11,6 +11,7 @@ public class TeleportDumbbell : MonoBehaviour
     private bool isHeld = false;
     private string handPath = "TrackingSpace/RightHandAnchor";
     public GameObject hand;
+    public GameObject handVisual;
     private Hand handScript;
 
     // Add fields for offset
@@ -61,8 +62,8 @@ public class TeleportDumbbell : MonoBehaviour
                 dumbbell.position = handTransform.position + handTransform.TransformDirection(positionOffset);
                 dumbbell.rotation = handTransform.rotation * Quaternion.Euler(rotationOffset);
                 dumbbell.parent = handTransform;
-                cameraRig.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
                 handScript.enabled = false;
+                handVisual.SetActive(false);
                 isHeld = true;
             }
             else
@@ -70,6 +71,7 @@ public class TeleportDumbbell : MonoBehaviour
                 dumbbell.parent = null;
                 dumbbellRigidbody.isKinematic = false;
                 handScript.enabled = true;
+                handVisual.SetActive(true);
                 isHeld = false;
             }
             Debug.Log("Hand Position: " + handTransform.position);

@@ -26,15 +26,7 @@ public class BlackoutToggle : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            isBlackScreenActive = !isBlackScreenActive;
-            if (fadeCoroutine != null)
-            {
-                StopCoroutine(fadeCoroutine);
-            }
-            fadeCoroutine = StartCoroutine(FadeBlackScreen(isBlackScreenActive));
-        }
+        
     }
 
     private IEnumerator FadeBlackScreen(bool fadeIn)
@@ -61,5 +53,11 @@ public class BlackoutToggle : MonoBehaviour
         {
             blackScreenCanvas.SetActive(false);
         }
+    }
+    public void StopBlackOut(){
+        StopCoroutine(fadeCoroutine);
+    }
+    public void StartBlackOut(){
+        StartCoroutine(FadeBlackScreen(isBlackScreenActive));
     }
 }
