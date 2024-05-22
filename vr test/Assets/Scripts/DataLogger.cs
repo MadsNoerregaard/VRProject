@@ -24,12 +24,12 @@ public class DataLogger : MonoBehaviour
         }
     }
 
-    public void Log(int UId, int trialID, int dumbellID, int dumbellWeight, int gripID, string answer)
+    public void Log(int UId, int trialID, string dumbell, int dumbellWeight, string grip, string answer)
     {
         if (isLogging)
         {
-            string logEntry = $"{UId}{separator}{trialID}{separator}{dumbellID}{separator}{dumbellWeight}{separator}{gripID}{separator}{answer}";
-
+            string logEntry = $"{UId}{separator}{trialID}{separator}{dumbell}{separator}{dumbellWeight}{separator}{grip}{separator}{answer}";
+            Debug.Log(logEntry);
             logData.Add(logEntry);
         }
     }

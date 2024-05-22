@@ -6,6 +6,8 @@ public class ButtonTriggerHeavy : MonoBehaviour
 {
     public Experiment experiment;
     private void OnTriggerEnter(Collider other) {
-        experiment.OnHeavierButtonClick(); 
+        if (other.CompareTag("Hand")) {
+            experiment.OnHeavierButtonClick(); 
+        }
     }
 }

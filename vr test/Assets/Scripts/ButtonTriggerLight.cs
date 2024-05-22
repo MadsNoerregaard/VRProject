@@ -6,6 +6,8 @@ public class ButtonTriggerLight : MonoBehaviour
 {
     public Experiment experiment;
     private void OnTriggerEnter(Collider other) {
-        experiment.OnLighterButtonClick(); 
+        if (other.CompareTag("Hand")) {
+            experiment.OnLighterButtonClick(); 
+        }
     }
 }

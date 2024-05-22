@@ -34,4 +34,12 @@ public class BlackoutToggle : MonoBehaviour
         blackScreenImage.color = Color.white;
         blackScreenCanvas.SetActive(true);
     }
+    public void StartRedOut(){
+        blackScreenImage.color = Color.red;
+        blackScreenCanvas.SetActive(true);
+    }
+    public void StartGreenOut(){
+        blackScreenImage.color = Color.green;
+        blackScreenCanvas.SetActive(true);
+    }
 }

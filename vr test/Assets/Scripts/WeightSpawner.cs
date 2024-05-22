@@ -29,16 +29,16 @@ public class WeightManager : MonoBehaviour
             }
         }
     }
-    public void ChooseWeight(int val) {
-        if (val == 1)
+    public void ChooseWeight(string val) {
+        if (val == "light")
         {
             SpawnWeight(weightType1Prefab);
         }
-        else if (val == 2)
+        else if (val == "medium")
         {
             SpawnWeight(weightType2Prefab);
         }
-        else if (val == 3)
+        else if (val == "heavy")
         {
             SpawnWeight(weightType3Prefab);
         }

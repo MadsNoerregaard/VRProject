@@ -15,8 +15,11 @@ public class TeleportDumbbell : MonoBehaviour
     private Hand handScript;
 
     // Add fields for offset
-    public Vector3 positionOffset = new Vector3(0f, -0.1f, 0.2f); // Adjust this value based on your needs
-    public Vector3 rotationOffset = Vector3.zero; // Additional field for rotation offset
+    public Vector3 positionOffset = new Vector3(0f, -0.1f, 0.2f); 
+    public Vector3 rotationOffset = Vector3.zero;
+    public Transform centerOfCross;
+
+    public float attachRange = 0.5f;
 
     void Start()
     {
@@ -30,19 +33,11 @@ public class TeleportDumbbell : MonoBehaviour
         {
             dumbbell = weights[0].transform;  
         }
-
-        grabPointTransform = dumbbell.Find("Grab Point");
-        if (grabPointTransform == null)
-        {
-            Debug.LogError("Grab Point not found in the dumbbell prefab!");
-            return;
+        if (dumbbell != null) {
+            grabPointTransform = dumbbell.Find("Grab Point");
         }
-
-        dumbbellRigidbody = dumbbell.GetComponent<Rigidbody>();
-        if (dumbbellRigidbody == null)
-        {
-            Debug.LogError("Rigidbody not found on the dumbbell!");
-            return;
+        if (dumbbell != null) {
+            dumbbellRigidbody = dumbbell.GetComponent<Rigidbody>();
         }
 
         handTransform = cameraRig.transform.Find(handPath);
@@ -57,23 +52,37 @@ public class TeleportDumbbell : MonoBehaviour
         {
             if (!isHeld)
             {
-                dumbbellRigidbody.isKinematic = true;
-
-                dumbbell.position = handTransform.position + handTransform.TransformDirection(positionOffset);
-                dumbbell.rotation = handTransform.rotation * Quaternion.Euler(rotationOffset);
-                dumbbell.parent = handTransform;
-                handScript.enabled = false;
-                handVisual.SetActive(false);
-                isHeld = true;
+                Attach();
             }
             else
             {
-                dumbbell.parent = null;
-                dumbbellRigidbody.isKinematic = false;
-                handScript.enabled = true;
-                handVisual.SetActive(true);
-                isHeld = false;
+                Detach();
             }
         }
+
+        if (Vector3.Distance(handTransform.position, centerOfCross.position) < attachRange)
+        {
+            if (!isHeld)
+            {
+                Attach();
+            }
+        }
+
+    }
+    public void Attach() {
+        dumbbellRigidbody.isKinematic = true;
+        dumbbell.position = handTransform.position + handTransform.TransformDirection(positionOffset);
+        dumbbell.rotation = handTransform.rotation * Quaternion.Euler(rotationOffset);
+        dumbbell.parent = handTransform;
+        handScript.enabled = false;
+        handVisual.SetActive(false);
+        isHeld = true;
+    }
+    public void Detach() {
+        dumbbell.parent = null;
+        dumbbellRigidbody.isKinematic = false;
+        handScript.enabled = true;
+        handVisual.SetActive(true);
+        isHeld = false;
     }
 }
