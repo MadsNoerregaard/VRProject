@@ -346,6 +346,8 @@ GameObject:
   - component: {fileID: 165236284}
   - component: {fileID: 165236283}
   - component: {fileID: 165236282}
+  - component: {fileID: 165236286}
+  - component: {fileID: 165236285}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -455,6 +457,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165236280}
   m_CullTransparentMesh: 1
+--- !u!114 &165236285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165236280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a856b7e34d713fb4e9f1d5b6edd21ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiment: {fileID: 1110839219}
+--- !u!65 &165236286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165236280}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 156.59433, y: 28.010164, z: 1.2224917}
+  m_Center: {x: -0.04569087, y: 0.8475428, z: -0.11170196}
 --- !u!1 &196718133
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +565,8 @@ GameObject:
   - component: {fileID: 274524282}
   - component: {fileID: 274524281}
   - component: {fileID: 274524280}
+  - component: {fileID: 274524284}
+  - component: {fileID: 274524283}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -638,6 +676,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274524278}
   m_CullTransparentMesh: 1
+--- !u!114 &274524283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274524278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c993ebf71ccdd8e47b2c20dca75cc930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiment: {fileID: 1110839219}
+--- !u!65 &274524284
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274524278}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 156.03868, y: 27.100266, z: 5.018032}
+  m_Center: {x: -1.3422606, y: -0.12140775, z: -0.16612586}
 --- !u!1001 &330519498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -909,7 +981,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -947,7 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreenCanvas: {fileID: 2124578470}
-  fadeDuration: 0.03
+  blackScreenImage: {fileID: 2124578472}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1536,7 @@ MonoBehaviour:
   lighterButton: {fileID: 274524280}
   heavierButton: {fileID: 165236282}
   UId: 0
+  buttonCooldown: 2
 --- !u!114 &1204655424 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2483171112407822892, guid: f54012181eacade4ea242c65f804720f, type: 3}
@@ -2011,6 +2084,10 @@ PrefabInstance:
       propertyPath: _hoverLocation
       value: 
       objectReference: {fileID: 2092384575}
+    - target: {fileID: 2241459140795588321, guid: f54012181eacade4ea242c65f804720f, type: 3}
+      propertyPath: m_TagString
+      value: Hand
+      objectReference: {fileID: 0}
     - target: {fileID: 2483171112407822886, guid: f54012181eacade4ea242c65f804720f, type: 3}
       propertyPath: _trackingOriginType
       value: 2

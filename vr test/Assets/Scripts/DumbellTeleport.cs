@@ -74,7 +74,6 @@ public class TeleportDumbbell : MonoBehaviour
                 handVisual.SetActive(true);
                 isHeld = false;
             }
-            Debug.Log("Hand Position: " + handTransform.position);
         }
     }
 }

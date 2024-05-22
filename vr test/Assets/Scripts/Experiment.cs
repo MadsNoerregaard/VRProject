@@ -1,10 +1,18 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class Experiment : MonoBehaviour
 {
+    private enum States {
+        BlackOutState,
+        InputState,
+        WaitState,
+        LogState,
+        EndState
+    }
     private List<(int, int, int)> fullList = new List<(int, int, int)>();
     public BlackoutToggle blackout;
     public GameObject orbWide;
@@ -18,7 +26,10 @@ public class Experiment : MonoBehaviour
     public int UId = 0;
     private int TrialId = 0;
     private string answer = "yes";
+    private States currentState = States.BlackOutState;
+    private (int, int, int) previousInput;
 
+    public float buttonCooldown = 2.0f; 
 
     void Start()
     {
@@ -29,7 +40,91 @@ public class Experiment : MonoBehaviour
 
     void Update()
     {
-        
+        if (currentState == States.WaitState){
+            if (Input.GetKeyDown(KeyCode.Q)) {  
+                currentState = States.InputState;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R)) {   //Use this to reset current test
+                currentState = States.BlackOutState;
+            }
+        if (Input.GetKeyDown(KeyCode.Y)) {  //Use this to rollback one test (in case of missclick)
+            fullList.Insert(0, previousInput);
+            TrialId --;
+            currentState = States.BlackOutState;
+        }  
+        if (fullList.Count <= 0){
+            currentState = States.EndState;
+        }
+        ExperimentLoop();
+    }
+
+    void ExperimentLoop() {
+        switch (currentState){
+            case States.BlackOutState:
+                Debug.Log($"(Real Weight = {fullList[0].Item2})");
+                blackout.StartBlackOut();
+                currentState = States.WaitState;
+                break;
+            case States.InputState:
+                weightmanager.ChooseWeight(fullList[0].Item1);
+                if(fullList[0].Item3 == 0){
+                    orbWide.SetActive(true);
+                    lineWide.SetActive(true);
+                } else {
+                    orbUp.SetActive(true);
+                    lineUp.SetActive(true);
+                }
+                blackout.StopBlackOut();
+                currentState = States.WaitState;
+                break;
+            case States.LogState:
+                datalogger.Log(UId, TrialId, fullList[0].Item1, fullList[0].Item2, fullList[0].Item3, answer);
+                Debug.Log($"(Uid = {UId}, TrialId = {TrialId}, Virtual Weight = {fullList[0].Item1}, Real Weight = {fullList[0].Item2}, Grip Type = {fullList[0].Item3}, Answer = {answer})");
+                Debug.Log($"(List Count = {fullList.Count})");
+                previousInput = fullList[0];
+                fullList.RemoveAt(0);
+                TrialId++;
+                resetScene();
+                currentState = States.BlackOutState;
+                break; 
+            case States.EndState:
+                blackout.EndExperiment();
+                blackout.StartBlackOut();
+                break;  
+        } 
+    }
+
+    public void OnLighterButtonClick(){
+        if (lighterButton.interactable) {
+            answer = "lighter";
+            currentState = States.LogState;
+            StartCoroutine(ButtonCooldown());
+        }
+    }
+
+    public void OnHeavierButtonClick(){
+        if (heavierButton.interactable) {
+            answer = "heavier";
+            currentState = States.LogState;
+            StartCoroutine(ButtonCooldown());
+        }
+    }
+
+    IEnumerator ButtonCooldown(){
+        lighterButton.interactable = false;
+        heavierButton.interactable = false;
+        yield return new WaitForSeconds(buttonCooldown);
+        lighterButton.interactable = true;
+        heavierButton.interactable = true;
+    }
+
+    void resetScene(){
+        orbWide.SetActive(false);
+        lineWide.SetActive(false);
+        orbUp.SetActive(false);
+        lineUp.SetActive(false);
+        weightmanager.DestroyExistingWeights();
     }
 
     void GenerateRandomizedList() {
@@ -60,11 +155,6 @@ public class Experiment : MonoBehaviour
         list2 = ShuffleList(list2);
         fullList.AddRange(list1);
         fullList.AddRange(list2);
-
-        foreach (var tuple in fullList)
-        {
-            Debug.Log($"(Visual Weight = {tuple.Item1}, Real Weight = {tuple.Item2}, Grip Type = {tuple.Item3})");
-        }
     }
 
     List<(int, int, int)> ShuffleList(List<(int, int, int)> list)
@@ -81,37 +171,5 @@ public class Experiment : MonoBehaviour
             shuffledList[n] = value;
         }
         return shuffledList;
-    }
-
-    void ExperimentLoop() {
-        blackout.StartBlackOut();
-        //wait for keypress
-        weightmanager.ChooseWeight(fullList[0].Item1);
-        if(fullList[0].Item3 == 0){
-            orbWide.SetActive(true);
-            lineWide.SetActive(true);
-        } else {
-            orbUp.SetActive(true);
-            lineUp.SetActive(true);
-        }
-        blackout.StopBlackOut();
-        //wait for user answer
-        datalogger.Log(UId, TrialId, fullList[0].Item1, fullList[0].Item2, fullList[0].Item3, answer);
-        fullList.RemoveAt(0);
-        TrialId ++;
-        resetScene();
-    }
-    void OnLighterButtonClick(){
-        answer = "lighter";
-    }
-    void OnHeavierButtonClick(){
-        answer = "heavier";
-    }
-    void resetScene(){
-        orbWide.SetActive(false);
-        lineWide.SetActive(false);
-        orbUp.SetActive(false);
-        lineUp.SetActive(false);
-        weightmanager.DestroyExistingWeights();
     }
 }

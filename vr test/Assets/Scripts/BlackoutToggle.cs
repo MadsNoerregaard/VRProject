@@ -1,14 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BlackoutToggle : MonoBehaviour
 {
     public GameObject blackScreenCanvas;
-    public float fadeDuration; // Duration for the fade effect
-
+    public Image blackScreenImage;
     private CanvasGroup canvasGroup;
-    private bool isBlackScreenActive = false;
-    private Coroutine fadeCoroutine;
 
     void Start()
     {
@@ -18,9 +16,7 @@ public class BlackoutToggle : MonoBehaviour
             Debug.LogError("CanvasGroup component not found on the blackScreenCanvas.");
             return;
         }
-
-        // Ensure the black screen is initially disabled
-        canvasGroup.alpha = 0f;
+        canvasGroup.alpha = 1f;
         blackScreenCanvas.SetActive(false);
     }
 
@@ -28,36 +24,14 @@ public class BlackoutToggle : MonoBehaviour
     {
         
     }
-
-    private IEnumerator FadeBlackScreen(bool fadeIn)
-    {
-        float startAlpha = canvasGroup.alpha;
-        float endAlpha = fadeIn ? 1f : 0f;
-        float elapsedTime = 0f;
-
-        if (fadeIn)
-        {
-            blackScreenCanvas.SetActive(true);
-        }
-
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
-            yield return null;
-        }
-
-        canvasGroup.alpha = endAlpha;
-
-        if (!fadeIn)
-        {
-            blackScreenCanvas.SetActive(false);
-        }
-    }
     public void StopBlackOut(){
-        StopCoroutine(fadeCoroutine);
+        blackScreenCanvas.SetActive(false);
     }
     public void StartBlackOut(){
-        StartCoroutine(FadeBlackScreen(isBlackScreenActive));
+        blackScreenCanvas.SetActive(true);
+    }
+    public void EndExperiment(){
+        blackScreenImage.color = Color.white;
+        blackScreenCanvas.SetActive(true);
     }
 }
