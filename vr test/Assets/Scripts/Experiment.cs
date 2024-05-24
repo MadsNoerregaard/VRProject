@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,11 @@ public class Experiment : MonoBehaviour
 {
     private enum States {
         BlackOutState,
-        RedOutState,
-        GreenOutState,
         InputState,
         WaitState,
         LogState,
-        EndState
+        EndState,
+        PauseState
     }
     private List<(string, int, string)> fullList = new List<(string, int, string)>();
     public BlackoutToggle blackout;
@@ -47,10 +47,16 @@ public class Experiment : MonoBehaviour
 
     void Update()
     {
-        if (currentState == States.WaitState){
+        if (currentState == States.WaitState){  //Use this to enter environment
             if (Input.GetKeyDown(KeyCode.Q)) {  
                 currentState = States.InputState;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.G)) {   //Use this to enter green
+            blackout.StartGreenOut();
+        }
+        if (Input.GetKeyDown(KeyCode.R)) {   //Use this to enter red
+            blackout.StartRedOut();
         }
         if (Input.GetKeyDown(KeyCode.O)) {   //Use this to reset current test
             resetScene();
@@ -73,17 +79,13 @@ public class Experiment : MonoBehaviour
         switch (currentState){
             case States.BlackOutState:
                 Debug.Log($"(Real Weight = {fullList[0].Item2}, Grip Type = {fullList[0].Item3})");
-                weightval.text = fullList[0].Item2.ToString();
-                blackout.StartBlackOut();
+                weightval.text = fullList[0].Item2.ToString() + fullList[0].Item3;
+                blackout.StartRedOut();
                 currentState = States.WaitState;
                 break;
             case States.InputState:
                 weightmanager.ChooseWeight(fullList[0].Item1);
-                if(fullList[0].Item3 == "wide"){
-                    lineWide.SetActive(true);
-                } else {
-                    lineUp.SetActive(true);
-                }
+                lineUp.SetActive(true);
                 blackout.StopBlackOut();
                 currentState = States.WaitState;
                 break;
