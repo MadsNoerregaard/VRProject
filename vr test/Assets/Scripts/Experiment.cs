@@ -33,16 +33,18 @@ public class Experiment : MonoBehaviour
     private States currentState = States.BlackOutState;
     private (string, int, string) previousInput;
 
-    public float buttonCooldown = 2.0f; 
-
+    public float buttonCooldown = 2.0f;
+    //false = undergrip, true = overgrip
+    public bool startGrip; 
     private string weight;
     private string firstGrip;
     private string secondGrip;
 
     void Start()
     {
+        if (startGrip == false) {firstGrip = "wide"; secondGrip = "up";} else {firstGrip = "up"; secondGrip = "wide";}
         GenerateRandomizedList();
-        datalogger.StartLogging(';', "TestSession", new string[] { "Uid", "TrialID", "Dumbell", "Dumbell Weight", "Grip Type", "Answer" } );
+        datalogger.StartLogging(';', "Session", new string[] { "Uid", "TrialID", "Dumbell", "Dumbell Weight", "Grip Type", "Answer" } );
     }
 
     void Update()
@@ -79,7 +81,7 @@ public class Experiment : MonoBehaviour
         switch (currentState){
             case States.BlackOutState:
                 Debug.Log($"(Real Weight = {fullList[0].Item2}, Grip Type = {fullList[0].Item3})");
-                weightval.text = fullList[0].Item2.ToString() + fullList[0].Item3;
+                weightval.text = fullList[0].Item2.ToString() + " " + fullList[0].Item3 + " " + fullList.Count;
                 blackout.StartRedOut();
                 currentState = States.WaitState;
                 break;
@@ -137,17 +139,6 @@ public class Experiment : MonoBehaviour
     }
 
     void GenerateRandomizedList() {
-        System.Random rand = new System.Random();
-        int randval = rand.Next(0, 2);
-        switch (randval){
-            case 0:
-                firstGrip = "wide";
-                break;
-            case 1:
-                firstGrip = "up";
-                break;
-
-        }
         List<(string, int, string)> list1 = new List<(string, int, string)>();
         List<(string, int, string)> list2 = new List<(string, int, string)>();
 
@@ -169,11 +160,6 @@ public class Experiment : MonoBehaviour
                 list1.Add((weight, j*65-65, firstGrip));
             }
         }
-
-        if (firstGrip == "wide") {
-            secondGrip = "up";
-        } else { secondGrip = "wide";}
-
         for (int i = 1; i <= 3; i++)
         {
             for (int j = 1; j <= 7; j++)

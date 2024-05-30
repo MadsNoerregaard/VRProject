@@ -7,6 +7,9 @@ public class BlackoutToggle : MonoBehaviour
     public GameObject blackScreenCanvas;
     public Image blackScreenImage;
     private CanvasGroup canvasGroup;
+    private Color whiteColor = new Color(255f/255f, 245f/255f, 238f/255f);
+    private Color redColor = new Color(255f/255f, 99f/255f, 71f/255f);
+    private Color greenColor = new Color(144f/255f, 238f/255f, 144f/255f);
 
     void Start()
     {
@@ -31,15 +34,15 @@ public class BlackoutToggle : MonoBehaviour
         blackScreenCanvas.SetActive(true);
     }
     public void EndExperiment(){
-        blackScreenImage.color = Color.white;
+        blackScreenImage.color = whiteColor;
         blackScreenCanvas.SetActive(true);
     }
     public void StartRedOut(){
-        blackScreenImage.color = Color.red;
+        blackScreenImage.color = redColor;
         blackScreenCanvas.SetActive(true);
     }
     public void StartGreenOut(){
-        blackScreenImage.color = Color.green;
+        blackScreenImage.color = greenColor;
         blackScreenCanvas.SetActive(true);
     }
 }
